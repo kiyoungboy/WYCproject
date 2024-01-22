@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.WYC.myapp.farming.dao.IRecommendRepository">
+
+	<resultMap id="areaCropsDto" type="com.WYC.myapp.farming.dto.AreaCropsDto">
+		<result property="areaCode" column="AREA_CODE"/>
+		<result property="areaName" column="AREA_NAME"/>
+		<result property="cropCode1" column="AREA_CROP1"/>
+		<result property="cropCode2" column="AREA_CROP2"/>
+		<result property="cropCode3" column="AREA_CROP3"/>
+	</resultMap>
+	
+	<resultMap id="cropDto" type="com.WYC.myapp.farming.dto.CropDto">
+		<result property="cropCode" column="CROP_CODE"/>
+		<result property="cropName" column="CROP_NAME"/>
+	</resultMap>
+
+	<resultMap id="recommendDto" type="com.WYC.myapp.farming.dto.RecommendDto">
+		<result property="cropCode" column="CROP_CODE"/>
+		<result property="cropName" column="CROP_NAME"/>
+		<result property="rPoint" column="R_POINT"/>
+		<result property="pPoint" column="P_POINT"/>
+		<result property="wPoint" column="W_POINT"/>
+		<result property="rpPoint" column="RP_POINT"/>
+		<result property="rwPoint" column="RW_POINT"/>
+		<result property="pwPoint" column="PW_POINT"/>
+		<result property="rpwPoint" column="RPW_POINT"/>
+	</resultMap>
+
+	<resultMap id="recommendInfoDto" type="com.WYC.myapp.farming.dto.RecommendInfoDto">
+		<result property="cropCode" column="CROP_CODE"/>
+		<result property="cropName" column="CROP_NAME"/>
+		<result property="cropRevenue" column="REVENUE"/>
+		<result property="cropPcost" column="PCOST"/>
+		<result property="cropWorkTime" column="WORK_TIME"/>
+	</resultMap>
+	
+	<!-- 지역에서 재배 가능한 농작물 3가지 조회 -->
+	<select id="findAreaCrops" parameterType="String" resultMap="areaCropsDto">
+		SELECT AREA_CODE,
+				AREA_NAME,
+				AREA_CROP1,
+				AREA_CROP2,
+				AREA_CROP3
+		FROM AREA_CROPS WHERE AREA_NAME = #{areaName}
+	</select>
+	
+	<!-- 5년간 매출정보 조회 -->
+	<select id="showRevenue" parameterType="int" resultType="int">
+		SELECT REVENUE
+		FROM
+		<if test="cropCode == 120001">
+			CROP_CHIVES
+		</if>
+		<if test="cropCode == 120002">
+			CROP_CUCUMBER
+		</if>
+		<if test="cropCode == 120003">
+			CROP_GARLIC
+		</if>
+		<if test="cropCode == 120004">
+			CROP_GRAPE
+		</if>
+		<if test="cropCode == 120005">
+			CROP_GREENONION
+		</if>
+		<if test="cropCode == 120006">
+			CROP_KIWI
+		</if>
+		<if test="cropCode == 120007">
+			CROP_ONION
+		</if>
+		<if test="cropCode == 120008">
+			CROP_PEACH
+		</if>
+		<if test="cropCode == 120009">
+			CROP_PEPPER
+		</if>
+		<if test="cropCode == 120010">
+			CROP_RICE
+		</if>
+		<if test="cropCode == 120011">
+			CROP_SPINACH
+		</if>
+		<if test="cropCode == 120012">
+			CROP_SPOTATO
+		</if>
+		<if test="cropCode == 120013">
+			CROP_STBERRY
+		</if>
+		<if test="cropCode == 120014">
+			CROP_TOMATO
+		</if>
+		WHERE YEAR BETWEEN 2017 and 2021
+	</select>
+	
+	<!-- 5년간 비용정보 조회 -->
+	<select id="showPcost" parameterType="int" resultType="int">
+		SELECT PCOST
+		FROM
+		<if test="cropCode == 120001">
+			CROP_CHIVES
+		</if>
+		<if test="cropCode == 120002">
+			CROP_CUCUMBER
+		</if>
+		<if test="cropCode == 120003">
+			CROP_GARLIC
+		</if>
+		<if test="cropCode == 120004">
+			CROP_GRAPE
+		</if>
+		<if test="cropCode == 120005">
+			CROP_GREENONION
+		</if>
+		<if test="cropCode == 120006">
+			CROP_KIWI
+		</if>
+		<if test="cropCode == 120007">
+			CROP_ONION
+		</if>
+		<if test="cropCode == 120008">
+			CROP_PEACH
+		</if>
+		<if test="cropCode == 120009">
+			CROP_PEPPER
+		</if>
+		<if test="cropCode == 120010">
+			CROP_RICE
+		</if>
+		<if test="cropCode == 120011">
+			CROP_SPINACH
+		</if>
+		<if test="cropCode == 120012">
+			CROP_SPOTATO
+		</if>
+		<if test="cropCode == 120013">
+			CROP_STBERRY
+		</if>
+		<if test="cropCode == 120014">
+			CROP_TOMATO
+		</if>
+		WHERE YEAR BETWEEN 2017 and 2021
+	</select>
+	
+	<!-- 5년간 수확량 정보 조회 -->
+	<select id="showYield" parameterType="int" resultType="int">
+		SELECT YIELD
+		FROM
+		<if test="cropCode == 120001">
+			CROP_CHIVES
+		</if>
+		<if test="cropCode == 120002">
+			CROP_CUCUMBER
+		</if>
+		<if test="cropCode == 120003">
+			CROP_GARLIC
+		</if>
+		<if test="cropCode == 120004">
+			CROP_GRAPE
+		</if>
+		<if test="cropCode == 120005">
+			CROP_GREENONION
+		</if>
+		<if test="cropCode == 120006">
+			CROP_KIWI
+		</if>
+		<if test="cropCode == 120007">
+			CROP_ONION
+		</if>
+		<if test="cropCode == 120008">
+			CROP_PEACH
+		</if>
+		<if test="cropCode == 120009">
+			CROP_PEPPER
+		</if>
+		<if test="cropCode == 120010">
+			CROP_RICE
+		</if>
+		<if test="cropCode == 120011">
+			CROP_SPINACH
+		</if>
+		<if test="cropCode == 120012">
+			CROP_SPOTATO
+		</if>
+		<if test="cropCode == 120013">
+			CROP_STBERRY
+		</if>
+		<if test="cropCode == 120014">
+			CROP_TOMATO
+		</if>
+		WHERE YEAR BETWEEN 2017 and 2021
+	</select>
+
+	<!-- 농작물 이름 조회 -->
+	<select id="showCrop" parameterType="int" resultType="String">
+		SELECT CROP_NAME
+		FROM CROP_CODE WHERE CROP_CODE=#{cropCode}
+	</select>
+	
+	<!-- 농작물 정보 조회 -->
+	<select id="searchCrop2" parameterType="int" resultMap="cropDto">
+		SELECT CROP_CODE,
+				CROP_NAME
+		FROM CROP_CODE WHERE CROP_CODE=#{searchCode}
+	</select>
+	
+	<!-- 추천 조건별 추천 포인트 조회 -->
+	<select id="getRecommendPoint"  resultMap="recommendDto">
+		SELECT CROP_CODE,
+				CROP_NAME,
+				<if test="commaRemoveData.equals('r')">
+					R_POINT AS rPoint
+				</if>
+				<if test="commaRemoveData.equals('r')">
+					P_POINT AS pPoint
+				</if>
+				<if test="commaRemoveData.equals('w')">
+					W_POINT AS wPoint
+				</if>
+				<if test="commaRemoveData.equals('rp')">
+					RP_POINT AS rpPoint
+				</if>
+				<if test="commaRemoveData.equals('rw')">
+					RW_POINT AS rwPoint
+				</if>
+				<if test="commaRemoveData.equals('pw')">
+					PW_POINT AS pwPoint
+				</if>
+				<if test="commaRemoveData.equals('rpw')">
+					RPW_POINT AS rpwPoint
+				</if>
+		FROM RECOMMEND_POINT WHERE CROP_CODE = #{selectedCrop}
+	</select>
+	<!-- 추천 농작물의 정보 조회 -->
+	<select id="searchRecommendInfo" parameterType="int" resultMap="recommendInfoDto">
+		SELECT CROP_CODE,
+				CROP_NAME,
+				REVENUE,
+				PCOST,
+				WORK_TIME
+		FROM RECOMMEND_INFO WHERE CROP_CODE = #{cropCode}
+	</select>
+
+</mapper>

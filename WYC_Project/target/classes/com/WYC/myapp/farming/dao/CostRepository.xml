@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.WYC.myapp.farming.dao.ICostRepository">
+
+	<resultMap type="com.WYC.myapp.farming.dto.CropDto" id="cropDto">
+		<result property="cropCode" column="crop_code"/>
+		<result property="cropName" column="crop_name"/>
+	</resultMap>
+	
+	<resultMap id="areaSiGunGuDto" type="com.WYC.myapp.farming.dto.AreaSiGunGuDto">
+		<result property="areaCode" column="area_code"/>
+		<result property="areaName" column="area_name"/>
+	</resultMap>
+	
+	<resultMap id="cropCostDto" type="com.WYC.myapp.farming.dto.CropCostDto">
+		<result property="cropCode" column="crop_code"/>
+		<result property="cropCost" column="pcost"/>
+	</resultMap>
+	
+	<resultMap id="policyDto" type="com.WYC.myapp.farming.dto.PolicyDto">
+		<result property="areaCode" column="area_code"/>
+		<result property="areaName" column="area_name"/>
+		<result property="policyName" column="policy_name"/>
+		<result property="policyAgeUp" column="age_up"/>
+		<result property="policyAgeDown" column="age_down"/>
+		<result property="farmingPeriod" column="residence_period"/>
+		<result property="productionCost" column="pcost"/>
+		<result property="fixedCost" column="fcost"/>
+		<result property="description" column="description"/>
+	</resultMap>
+	
+	<!-- 농작물 정보 조회 -->
+	<select id="searchCrop" parameterType="String" resultMap="cropDto">
+		SELECT CROP_CODE,
+				CROP_NAME
+		FROM CROP_CODE  WHERE CROP_NAME = #{searchName}
+	</select>
+	
+	<!-- 지역 정보 조회 -->
+	<select id="searchSiGunGu" parameterType="String" resultMap="areaSiGunGuDto">
+		SELECT AREA_CODE,
+				AREA_NAME
+		FROM AREA_CODE WHERE AREA_NAME = #{searchSiGunGu}
+	</select>
+	
+	<!-- 농작물별 비용 조회 -->
+	<select id="searchCost" parameterType="int" resultMap="cropCostDto">
+			<if test="code == 120001">
+	        	SELECT PCOST, CROP_CODE FROM CROP_CHIVES WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120002">
+	        	SELECT PCOST, CROP_CODE FROM CROP_CUCUMBER WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120003">
+	        	SELECT PCOST, CROP_CODE FROM CROP_GARLIC WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120004">
+	        	SELECT PCOST, CROP_CODE FROM CROP_GRAPE WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120005">
+	        	SELECT PCOST, CROP_CODE FROM CROP_GREENONION WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120006">
+	        	SELECT PCOST, CROP_CODE FROM CROP_KIWI WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120007">
+	        	SELECT PCOST, CROP_CODE FROM CROP_ONION WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120008">
+	        	SELECT PCOST, CROP_CODE FROM CROP_PEACH WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120009">
+	        	SELECT PCOST, CROP_CODE FROM CROP_PEPPER WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120010">
+	        	SELECT PCOST, CROP_CODE FROM CROP_RICE WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120011">
+	        	SELECT PCOST, CROP_CODE FROM CROP_SPINACH WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120012">
+	        	SELECT PCOST, CROP_CODE FROM CROP_SPOTATO WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+	    	<if test="code == 120013">
+	        	SELECT PCOST, CROP_CODE FROM CROP_STBERRY WHERE CROP_CODE = #{code} AND YEAR = 2021
+	    	</if>
+		    <if test="code == 120014">
+		        SELECT PCOST, CROP_CODE FROM CROP_TOMATO WHERE CROP_CODE = #{code} AND YEAR = 2021
+		    </if>
+	</select>
+	
+	<select id="showConditionList" parameterType="int" resultMap="policyDto">
+		<choose>
+			<when test="siGunGuCode != 0 &amp;&amp; age != 0">
+				SELECT POLICY_NAME,
+						AREA_NAME,
+						FCOST,
+						PCOST,
+						AREA_CODE,
+						AGE_UP,
+						AGE_DOWN,
+						RESIDENCE_PERIOD,
+						DESCRIPTION
+				FROM COST_POLICY
+				WHERE AREA_CODE = #{siGunGuCode} AND #{age} BETWEEN AGE_UP AND AGE_DOWN AND RESIDENCE_PERIOD = #{farmingPeriod} ORDER BY AREA_CODE DESC
+			</when>
+			<otherwise>
+				SELECT POLICY_NAME,
+						AREA_NAME,
+						FCOST,
+						PCOST,
+						AREA_CODE,
+						AGE_UP,
+						AGE_DOWN,
+						RESIDENCE_PERIOD,
+						DESCRIPTION
+				FROM COST_POLICY ORDER BY AREA_CODE DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="showList" resultMap="policyDto">
+		SELECT POLICY_NAME,
+						AREA_NAME,
+						FCOST,
+						PCOST,
+						AREA_CODE,
+						AGE_UP,
+						AGE_DOWN,
+						RESIDENCE_PERIOD,
+						DESCRIPTION
+			FROM COST_POLICY ORDER BY AREA_CODE DESC
+	</select>
+</mapper>

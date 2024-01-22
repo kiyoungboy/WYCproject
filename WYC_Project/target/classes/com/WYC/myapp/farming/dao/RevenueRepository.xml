@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.WYC.myapp.farming.dao.IRevenueRepository">
+
+	<resultMap id="farmCropDto" type="com.WYC.myapp.farming.dto.FarmCropDto">
+		<result property="crop_num" column="CROP_NUM"/>
+		<result property="crop_name" column="CROP_NAME"/>
+		<result property="crop_eng" column="CROP_ENG"/>
+	</resultMap>
+	
+	<resultMap id="farmCropAreaDto" type="com.WYC.myapp.farming.dto.FarmCropAreaDto">
+		<result property="area_eng" column="AREA_ENG"/>
+		<result property="area_name" column="AREA_NAME"/>
+	</resultMap>
+	
+	<resultMap id="farmAreaCropDto" type="com.WYC.myapp.farming.dto.FarmAreaCropDto">
+		<result property="area_name" column="AREA_NAME"/>
+		<result property="crop_name" column="CROP_NAME"/>
+		<result property="crop_eng" column="CROP_ENG"/>
+	</resultMap>
+	
+	<resultMap id="farmCropProfileDto" type="com.WYC.myapp.farming.dto.FarmCropProfileDto">
+		<result property="cropName" column="CROPNAME"/>
+		<result property="cropKor" column="CROPKOR"/>
+		<result property="cropVariety" column="CROPVARIETY"/>
+		<result property="cropGrow" column="CROPGROW"/>
+		<result property="cropSpecial" column="CROPSPECIAL"/>
+	</resultMap>
+
+	<!--  농작물 리스트 조회 -->
+	<select id="cropList" resultMap="farmCropDto">
+		SELECT * FROM CROPLIST ORDER BY CROP_NAME
+	</select>
+	
+	<!-- 지역 리스트 조회 -->
+	<select id="cropAreaList" parameterType="String" resultMap="farmCropAreaDto">
+		SELECT * FROM AREA_CROPS2 WHERE CROP_ENG = #{crop} 
+		ORDER BY AREA_NAME
+	</select>
+	
+	<!-- 농작물 전체 매출정보 조회 -->
+	<select id="getRevenues" parameterType="String" resultType="java.lang.Integer">
+		SELECT revenue FROM CROP_${selectCrop} ORDER BY year
+	</select>
+	
+	<!-- 지역에 맞는 농작물 조회 -->
+	<select id="getAreaCrop" parameterType="String" resultMap="farmAreaCropDto">
+		SELECT * FROM AREA_CROPS2 WHERE AREA_ENG = #{areaName}
+	</select>
+	
+	<!-- 농작물 상세정보 조회 -->
+	<select id="getCropProfile" parameterType="String" resultMap="farmCropProfileDto">
+		SELECT * FROM CROP_PROFILE WHERE CROPNAME = #{selectCrop}
+	</select>
+	
+	<!-- 경매단가, 수확량 정보 조회 -->
+	<select id="getHpriceYield" parameterType="String" resultType="java.util.List">
+		SELECT YEAR, HPRICE, YIELD FROM CROP_${selectCrop} WHERE YEAR IN (2017, 2018, 2019, 2020, 2021)
+	</select>
+	
+	<!-- 농작물 매출 정보 조회 -->
+	<select id="findRevenue" parameterType="String" resultType="java.lang.Integer">
+		SELECT REVENUE FROM CROP_${cropName}
+	</select>
+	
+	<!-- 농작물 예상 매출 정보 조회 -->
+	<select id="findPredictRevenue" parameterType="String" resultType="int">
+		SELECT REVENUE_PREDICT FROM CROP_REVENUE_PREDICT WHERE CROP_NAME = #{selectCrop}
+	</select>
+	
+</mapper>
