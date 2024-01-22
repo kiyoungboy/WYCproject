@@ -8,4 +8,6 @@
 
 3차 프로젝트 기간 : 20230823 ~ 20230831
 
-<h4><a href="https://github.com/kiyoungboy/WYC/tree/main/1.project%20I%20(BigData%20UI)">#1.프로젝트 1. UI & Bigdata-프로젝트 파일</a></h4>
+3차 이후 : 지속적으로 refactoring과 개발 진행중
+
+<h4><a href="https://github.com/kiyoungboy/WYC">프로젝트에 대한 추가 정보(요구 사항 정의서 등)</a></h4>
