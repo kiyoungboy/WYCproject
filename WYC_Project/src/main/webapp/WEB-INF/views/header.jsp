@@ -84,8 +84,8 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">회원관리</a>
                     <div class="dropdown-menu bg-light m-0">
-                        <a href="login.jsp" class="dropdown-item">로그인</a>
-                        <a href="mypage.jsp" class="dropdown-item">마이 페이지</a>
+                        <a href="login" class="dropdown-item">로그인</a>
+                        <a href="mypage" class="dropdown-item">마이 페이지</a>
                     </div>
                 </div>
             </div>

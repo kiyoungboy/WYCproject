@@ -85,13 +85,13 @@
 
       <div class="service_box">
         <div class="find_id border_right padding_10">
-          <a href="find_id.jsp">ID찾기</a>
+          <a href="find_id">ID찾기</a>
         </div>
         <div class="find_pw border_right padding_10">
-          <a href="find_pw.jsp">PW찾기</a>
+          <a href="find_pw">PW찾기</a>
         </div>
         <div class="create_id padding_10">
-          <a href="joinMember.jsp">회원가입</a>
+          <a href="joinMember">회원가입</a>
         </div>
       </div>
     </main>
